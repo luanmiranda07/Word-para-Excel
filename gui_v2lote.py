@@ -89,6 +89,12 @@ class App(tk.Tk):
         self.geometry("780x460")
         self.minsize(720, 420)
 
+        try:
+            icon = tk.PhotoImage(file="LOGO CC MARROM.png")  # pode ser .png ou .ico
+            self.iconphoto(True, icon)
+        except Exception as e:
+            print(f"Não foi possível carregar o ícone: {e}")
+
         self.current_files = []    # lista de caminhos selecionados
         self.result_rows = []      # linhas extraídas
 
@@ -111,7 +117,7 @@ class App(tk.Tk):
             .pack(side=tk.LEFT, padx=12)
 
         # Centro: tabela de resultados
-        mid = ttk.Frame(self, padding=(12, 6))
+        mid = ttk.Frame(self, padding=(6, 3))
         mid.pack(fill=tk.BOTH, expand=True)
 
         cols = ("Arquivo", "Nome", "CPF", "Data")
