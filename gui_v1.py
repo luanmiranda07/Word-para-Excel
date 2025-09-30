@@ -55,9 +55,9 @@ def gerar_excel_em_arquivo(dados: dict, save_path: str) -> None:
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Extrair Nome, CPF e Data do DOCX — Tkinter")
-        self.geometry("640x360")
-        self.minsize(560, 320)
+        self.title("Extrair DOCX para EXCEL")
+        self.geometry("360x100")
+        self.minsize(560, 150)
 
         self.current_file_path = None
         self.dados = {"Nome": "", "CPF": "", "Data": ""}
@@ -75,28 +75,25 @@ class App(tk.Tk):
         self.path_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=8)
         ttk.Button(top, text="Abrir...", command=self.on_open).pack(side=tk.LEFT)
 
-        # Centro: formulário de resultados
-        form = ttk.LabelFrame(self, text="Resultado", padding=12)
-        form.pack(fill=tk.BOTH, expand=True, padx=12, pady=8)
-
+     
         self.nome_var = tk.StringVar()
         self.cpf_var = tk.StringVar()
         self.data_var = tk.StringVar()
 
-        # Linhas do formulário
-        self._row(form, 0, "Nome", self.nome_var)
-        self._row(form, 1, "CPF", self.cpf_var)
-        self._row(form, 2, "Data", self.data_var)
+        
 
         # Rodapé: botões de ação
         actions = ttk.Frame(self, padding=12)
         actions.pack(fill=tk.X)
-        ttk.Button(actions, text="Processar", command=self.on_process).pack(side=tk.LEFT)
-        ttk.Button(actions, text="Salvar Excel", command=self.on_save_excel).pack(side=tk.LEFT, padx=8)
-        ttk.Button(actions, text="Limpar", command=self.on_clear).pack(side=tk.LEFT)
+        center = ttk.Frame(actions)
+        center.pack(expand=True)
+
+        ttk.Button(center, text="Processar", command=self.on_process).pack(side=tk.LEFT, padx=8)
+        ttk.Button(center, text="Salvar Excel", command=self.on_save_excel).pack(side=tk.LEFT, padx=8)
+        ttk.Button(center, text="Limpar", command=self.on_clear).pack(side=tk.LEFT, padx=8)
 
         self.status_var = tk.StringVar(value="Pronto.")
-        ttk.Label(self, textvariable=self.status_var, anchor=tk.W).pack(fill=tk.X, padx=12, pady=(0,12))
+        ttk.Label(self, textvariable=self.status_var, anchor="center").pack(fill=tk.X, padx=12, pady=(0,12))
 
     def _row(self, parent, r, label, var):
         ttk.Label(parent, text=f"{label}:").grid(row=r, column=0, sticky=tk.W, padx=(0,8), pady=6)
